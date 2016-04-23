@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/item_tab_re"
+    android:layout_width="0dp"
+    android:layout_height="match_parent"
+    android:layout_weight="1"
+    android:padding="3dp">
+
+    <RelativeLayout
+        android:layout_width="60dp"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/item_tab_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="28dp"
+            android:layout_centerHorizontal="true"
+            android:background="#ffffff"
+            android:focusable="false"
+            android:scaleType="centerInside"
+            android:src="@drawable/tab_index" />
+
+        <TextView
+            android:id="@+id/item_tab_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/item_tab_iv"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="3dp"
+            android:text="@string/tab_index"
+            android:textColor="@drawable/tab_text"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/item_tab_unread_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="8dp"
+            android:background="@drawable/tab_tip_ico"
+            android:gravity="center"
+            android:text="7"
+            android:textColor="@android:color/white"
+            android:textSize="12sp"
+            android:visibility="gone" />
+    </RelativeLayout>
+</RelativeLayout>
