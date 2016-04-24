@@ -1,3 +1,16 @@
 # StudyForIT
-从0到1的IT项目案例，将Android、JavaWeb、PHP、HTML5、JavaScript等完美融合为一个完整的项目
-从0到1的IT项目案例，将Android、JavaWeb、PHP、HTML5、JavaScript等完美融合为一个完整的项目
+从0到1的IT项目案例，将Android、JavaWeb、PHP、MySql、HTML5、JavaScript等完美融合为一个完整的项目
+
+开发前言：
+1.项目将会以StudyForIT为主线，仅以此纪念自己“刻意学习”的经历。
+2.项目的所有代码都将会开源（包括前端和后端），从0到1，不断完善。（服务端开源将延迟到201607）
+
+项目介绍：
+1.项目前端将会采用Android原生混合Html5的方式开发。(短期内不会有IOS)
+2.服务器端采用PHP+MySql的经典方式，所有接口将会以PHP为主，并且后端管理系统也会采用PHP开发。（JavaWeb酱油了吗？）
+3.推送和聊天系统将会采用xmpp协议，服务器端会搭建openfire服务器。另由于asmack已过时将不会采用。（会有更好的！）
+
+业务内容：
+1.为了更好的诠释StudyForIT这条主线，项目的业务内容也将会是IT相关知识。
+2.包括但不限于IT相关的文章、笔记、博客、视频、新闻、开源等。
+3.前端具体设计将会参考：简书、知乎、头条等IT相关的应用。
