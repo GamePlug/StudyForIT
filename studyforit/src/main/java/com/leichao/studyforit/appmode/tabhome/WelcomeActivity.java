@@ -26,7 +26,7 @@ public class WelcomeActivity extends BaseActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(WelcomeActivity.this, TestDownloadActivity.class);
+                Intent intent = new Intent(WelcomeActivity.this, TestUploadActivity.class);
                 startActivity(intent);
                 finish();
             }

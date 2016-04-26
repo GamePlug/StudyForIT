@@ -36,7 +36,8 @@ public class TestDownloadActivity extends BaseActivity {
         //getImageFile("image03.jpg");
         //getImageFileIng("image03.jpg");
         //responseImageFile("image03.jpg");
-        responseImageFile("ShenMaDiDiClient2.0.91.0.apk");
+        //responseImageFile("ShenMaDiDiClient2.0.91.0.apk");
+        downImageNew("image03.jpg");
     }
 
     @Override
@@ -125,8 +126,8 @@ public class TestDownloadActivity extends BaseActivity {
                                 .build()
                 )
                 .create(Api.class)
-                //.getImageFile(fileName)
-                .getApk(fileName)
+                .getImageFile(fileName)
+                //.getApk(fileName)
                 .enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, final Response<ResponseBody> response) {
@@ -137,6 +138,41 @@ public class TestDownloadActivity extends BaseActivity {
                             public void run() {
                                 FileUtil.inputStreamToFile(response.body().byteStream(),
                                 new File(DownLoadConfig.DOWN_LOAD_DIR, fileName));
+                                Log.e("leilei","写入完成");
+                            }
+                        }).start();
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        Log.e("leilei","failure");
+                    }
+                });
+    }
+
+
+    private void downImageNew(final String fileName) {
+        new RetrofitManager.Creator()
+                .downListener(new ProgressListener() {
+                    @Override
+                    public void onProgress(long progress, long total, boolean done) {
+                        Debug.e("leilei", "下载监听: "+ "progress:" + progress +  "---total:" + total
+                                + "---done" + done);
+                    }
+                })
+                .create(Api.class)
+                .getImageFile(fileName)
+                //.getApk(fileName)
+                .enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, final Response<ResponseBody> response) {
+                        Log.e("leilei","开始写入");
+                        // 由于接口方法增加了注释@Streaming，所有要在子线程中执行,否则会有NetworkOnMainThreadException
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                FileUtil.inputStreamToFile(response.body().byteStream(),
+                                        new File(DownLoadConfig.DOWN_LOAD_DIR, fileName));
                                 Log.e("leilei","写入完成");
                             }
                         }).start();

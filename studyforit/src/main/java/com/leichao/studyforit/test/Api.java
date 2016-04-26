@@ -93,7 +93,7 @@ public interface Api {
 
 
     // ---------------文件下载------------------//
-    @GET("http://119.29.62.241/leichao/data/upload/image/{fileName}")
+    @POST("http://119.29.62.241/leichao/data/upload/image/{fileName}")
     //@Headers({"Content-Type: image/jpeg"})
     @Streaming//如果不加此注释，则会把整个文件写入内存，那么大文件会内存溢出。
     Call<ResponseBody> getImageFile(

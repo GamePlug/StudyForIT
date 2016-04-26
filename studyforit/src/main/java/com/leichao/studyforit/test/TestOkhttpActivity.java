@@ -23,6 +23,8 @@ public class TestOkhttpActivity extends BaseActivity {
     @Override
     public void initData() {
         request();
+        request2();
+        request3();
         /*Debug.writeLog("leichao", "哈哈你这是哪里错了");
         Debug.delTimeoutLog();*/
     }
@@ -38,6 +40,45 @@ public class TestOkhttpActivity extends BaseActivity {
                 .factory(ScalarsConverterFactory.create())
                 .create(Api.class)
                 .didi()
+                .enqueue(new Callback<String>() {
+                    @Override
+                    public void onResponse(Call<String> call, Response<String> response) {
+                        Debug.e("leilei", "onResponse"+response.body());
+                    }
+
+                    @Override
+                    public void onFailure(Call<String> call, Throwable t) {
+                        Debug.e("leilei", "onFailure"+t.getMessage());
+                    }
+                });
+    }
+
+    private void request2() {
+        new RetrofitManager
+                .Creator()
+                .baseUrl("https://kyfw.12306.cn")
+                .factory(ScalarsConverterFactory.create())
+                .create(Api.class)
+                .testHttps()
+                .enqueue(new Callback<String>() {
+                    @Override
+                    public void onResponse(Call<String> call, Response<String> response) {
+                        Debug.e("leilei", "onResponse"+response.body());
+                    }
+
+                    @Override
+                    public void onFailure(Call<String> call, Throwable t) {
+                        Debug.e("leilei", "onFailure"+t.getMessage());
+                    }
+                });
+    }
+
+    private void request3() {
+        new RetrofitManager.Creator()
+                .baseUrl("http://gank.io/")
+                .factory(ScalarsConverterFactory.create())
+                .create(Api.class)
+                .ddd(2,1)
                 .enqueue(new Callback<String>() {
                     @Override
                     public void onResponse(Call<String> call, Response<String> response) {

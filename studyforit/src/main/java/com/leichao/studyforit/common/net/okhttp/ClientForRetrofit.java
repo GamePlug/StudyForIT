@@ -27,14 +27,24 @@ public class ClientForRetrofit {
 
     public static final String APPLICATION_FORM_URL = "application/x-www-form-urlencoded;charset=UTF-8";
     public static final String MULTIPART_FORM_DATA = "multipart/form-data";
-    private static OkHttpClient client;
+    //private static OkHttpClient client;
+    private ProgressListener listener;
 
-    public static OkHttpClient getClient() {
+    /*public static OkHttpClient getClient() {
         if (client == null) {
             //client = new ClientForRetrofit().build(new OkHttpClient.Builder());
             client = new ClientForRetrofit().build(OkHttpImpl.getUnsafeBuilder());
         }
         return client;
+    }*/
+
+    public OkHttpClient getClient() {
+        return build(OkHttpImpl.getUnsafeBuilder());
+    }
+
+    public OkHttpClient getClient(ProgressListener listener) {
+        this.listener = listener;
+        return build(OkHttpImpl.getUnsafeBuilder());
     }
 
     /**
@@ -74,7 +84,18 @@ public class ClientForRetrofit {
                 }
                 break;
         }
-        return chain.proceed(request);
+        Response response = chain.proceed(request);
+        if (listener != null) {
+            response = response.newBuilder()
+                    .body(new ProgressResponseBody(response.body(), new ProgressListener() {
+                        @Override
+                        public void onProgress(long progress, long total, boolean done) {
+                            listener.onProgress(progress, total, done);
+                        }
+                    }))
+                    .build();
+        }
+        return response;
     }
 
     /**

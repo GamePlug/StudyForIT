@@ -1,6 +1,7 @@
 package com.leichao.studyforit.common.net.retrofit;
 
 import com.leichao.studyforit.common.net.okhttp.ClientForRetrofit;
+import com.leichao.studyforit.common.net.okhttp.ProgressListener;
 import com.leichao.studyforit.config.NetConfig;
 
 import okhttp3.OkHttpClient;
@@ -17,7 +18,7 @@ public class RetrofitManager {
         private OkHttpClient client;
         private String baseUrl;
         private Converter.Factory factory;
-
+        private ProgressListener downListener;
 
         public Creator client(OkHttpClient client) {
             this.client = client;
@@ -34,9 +35,18 @@ public class RetrofitManager {
             return this;
         }
 
+        public Creator downListener(ProgressListener downListener) {
+            this.downListener = downListener;
+            return this;
+        }
+
         public  <T> T  create(final Class<T> service) {
             if (client == null) {
-                client = ClientForRetrofit.getClient();
+                if (downListener != null) {
+                    client = new ClientForRetrofit().getClient(downListener);
+                } else {
+                    client = new ClientForRetrofit().getClient();
+                }
             }
             if (baseUrl == null) {
                 baseUrl = NetConfig.DEFAULT_BASEURL;

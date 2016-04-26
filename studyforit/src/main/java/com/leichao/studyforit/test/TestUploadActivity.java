@@ -10,10 +10,13 @@ import com.leichao.studyforit.common.debug.Debug;
 import com.leichao.studyforit.common.net.okhttp.ProgressListener;
 import com.leichao.studyforit.common.net.okhttp.ProgressRequestBody;
 import com.leichao.studyforit.common.net.retrofit.RetrofitManager;
+import com.leichao.studyforit.common.net.retrofit.RetrofitUpload;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import okhttp3.MediaType;
@@ -42,7 +45,8 @@ public class TestUploadActivity extends BaseActivity {
         //upload();
         //uploadOneImage();
         //uploadMore();
-        uploadProgress();
+        //uploadProgress();
+        uploadNew();
     }
 
     @Override
@@ -191,4 +195,51 @@ public class TestUploadActivity extends BaseActivity {
                     }
                 });
     }
+
+
+
+    private void uploadNew(){
+        List<RetrofitUpload.UploadBean> list = new ArrayList<>();
+        final File file1 = new File(Environment.getExternalStorageDirectory() + "/picture/lol/image02.jpg");
+        list.add(new RetrofitUpload.UploadBean(
+                file1,
+                new ProgressListener() {
+                    @Override
+                    public void onProgress(long progress, long total, boolean done) {
+                        Debug.e("leilei", file1.getName()+ "progress:" + progress +  "---total:" + total
+                                + "---done" + done);
+                    }
+                }));
+        final File file2 = new File(Environment.getExternalStorageDirectory() + "/picture/lol/image03.jpg");
+        list.add(new RetrofitUpload.UploadBean(
+                file2,
+                new ProgressListener() {
+                    @Override
+                    public void onProgress(long progress, long total, boolean done) {
+                        Debug.e("leilei", file2.getName()+ "progress:" + progress +  "---total:" + total
+                                + "---done" + done);
+                    }
+                }));
+        Map<String, RequestBody> params = RetrofitUpload.getRequestBodyMap("image", list);
+
+        new RetrofitManager.Creator()
+                .factory(ScalarsConverterFactory.create())
+                .create(Api.class)
+                .uploadMoreImage("hello",params)
+                .enqueue(new Callback<String>() {
+                    @Override
+                    public void onResponse(Call<String> call, Response<String> response) {
+                        Debug.e("leilei", "onResponse:" + response.body());
+                        Glide.with(imageView.getContext())
+                                .load(response.body().split("_")[0])
+                                .into(imageView);
+                    }
+
+                    @Override
+                    public void onFailure(Call<String> call, Throwable t) {
+                        Debug.e("leilei", "onFailure:" + t.getMessage());
+                    }
+                });
+    }
+
 }
