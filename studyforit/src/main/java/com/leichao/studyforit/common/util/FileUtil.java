@@ -1,6 +1,10 @@
 package com.leichao.studyforit.common.util;
 
+import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * 文件操作类
@@ -23,6 +27,27 @@ public class FileUtil {
                 delete(childFiles[i]);
             }
             file.delete();
+        }
+    }
+
+    public static void inputStreamToFile(InputStream is, File file) {
+        try {
+            if (!file.getParentFile().exists()) {
+                file.getParentFile().mkdirs();
+            }
+            FileOutputStream fos = new FileOutputStream(file);
+            BufferedInputStream bis = new BufferedInputStream(is);
+            byte[] buffer = new byte[1024];
+            int len;
+            while ((len = bis.read(buffer)) != -1) {
+                fos.write(buffer, 0, len);
+                fos.flush();
+            }
+            fos.close();
+            bis.close();
+            is.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

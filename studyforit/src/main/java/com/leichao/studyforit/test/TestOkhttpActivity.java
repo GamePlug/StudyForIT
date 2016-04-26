@@ -28,12 +28,15 @@ public class TestOkhttpActivity extends BaseActivity {
     }
 
     private void request() {
-        RetrofitManager
+        new RetrofitManager
                 /*.create(Api.class, "https://kyfw.12306.cn", ScalarsConverterFactory.create())
                 .testHttps()*/
                 /*.create(Api.class, "http://gank.io/", ScalarsConverterFactory.create())
                 .ddd(2,1)*/
-                .create(Api.class, "http://test.didi365.com/", ScalarsConverterFactory.create())
+                .Creator()
+                .baseUrl("http://test.didi365.com/")
+                .factory(ScalarsConverterFactory.create())
+                .create(Api.class)
                 .didi()
                 .enqueue(new Callback<String>() {
                     @Override

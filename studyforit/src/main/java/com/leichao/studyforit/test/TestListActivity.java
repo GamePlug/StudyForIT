@@ -70,7 +70,8 @@ public class TestListActivity extends BaseListActivity<Benefit> {
             page = 1;
         }
 
-        RetrofitManager.create(Api.class)
+        new RetrofitManager.Creator()
+            .create(Api.class)
             .defaultBenefits(20, page++)
             //.postBenefits(20, page++, "wgghw")
             //.postBenefits(20, page++)

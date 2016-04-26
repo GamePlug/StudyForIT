@@ -3,6 +3,7 @@ package com.leichao.studyforit.common.net.retrofit;
 import com.leichao.studyforit.common.net.okhttp.ClientForRetrofit;
 import com.leichao.studyforit.config.NetConfig;
 
+import okhttp3.OkHttpClient;
 import retrofit2.Converter;
 import retrofit2.Retrofit;
 
@@ -12,61 +13,44 @@ import retrofit2.Retrofit;
  */
 public class RetrofitManager {
 
-    /**
-     * 获得网络请求接口
-     * @param service Retrofit网络请求需要的interface
-     */
-    public static  <T> T create(final Class<T> service) {
-        return RetrofitManager
-                .getRetrofitInstance(NetConfig.DEFAULT_BASEURL, NetConfig.DEFAULT_FACTORY)
-                .create(service);
-    }
+    public static final class Creator {
+        private OkHttpClient client;
+        private String baseUrl;
+        private Converter.Factory factory;
 
-    /**
-     * 获得网络请求接口
-     * @param service Retrofit网络请求需要的interface
-     * @param baseUrl 域名
-     */
-    public static  <T> T create(final Class<T> service, String baseUrl) {
-        return RetrofitManager
-                .getRetrofitInstance(baseUrl, NetConfig.DEFAULT_FACTORY)
-                .create(service);
-    }
 
-    /**
-     * 获得网络请求接口
-     * @param service Retrofit网络请求需要的interface
-     * @param factory 解析返回数据的工厂类
-     */
-    public static  <T> T create(final Class<T> service, Converter.Factory factory) {
-        return RetrofitManager
-                .getRetrofitInstance(NetConfig.DEFAULT_BASEURL, factory)
-                .create(service);
-    }
+        public Creator client(OkHttpClient client) {
+            this.client = client;
+            return this;
+        }
 
-    /**
-     * 获得网络请求接口
-     * @param service Retrofit网络请求需要的interface
-     * @param baseUrl 域名
-     * @param factory 解析返回数据的工厂类
-     */
-    public static  <T> T create(final Class<T> service, String baseUrl, Converter.Factory factory) {
-        return RetrofitManager
-                .getRetrofitInstance(baseUrl, factory)
-                .create(service);
-    }
+        public Creator baseUrl(String baseUrl) {
+            this.baseUrl = baseUrl;
+            return this;
+        }
 
-    /**
-     * 设置retrofit的一些参数
-     * @param baseUrl 域名
-     * @param factory 解析返回数据的工厂类
-     */
-    private static Retrofit getRetrofitInstance(String baseUrl, Converter.Factory factory) {
-        return new Retrofit.Builder()
-                .client(ClientForRetrofit.getClient())
-                .baseUrl(baseUrl)
-                .addConverterFactory(factory)
-                .build();
+        public Creator factory(Converter.Factory factory) {
+            this.factory = factory;
+            return this;
+        }
+
+        public  <T> T  create(final Class<T> service) {
+            if (client == null) {
+                client = ClientForRetrofit.getClient();
+            }
+            if (baseUrl == null) {
+                baseUrl = NetConfig.DEFAULT_BASEURL;
+            }
+            if (factory == null) {
+                factory = NetConfig.DEFAULT_FACTORY;
+            }
+            return new Retrofit.Builder()
+                    .client(client)
+                    .baseUrl(baseUrl)
+                    .addConverterFactory(factory)
+                    .build()
+                    .create(service);
+        }
     }
 
 }

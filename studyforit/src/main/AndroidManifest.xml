@@ -36,6 +36,9 @@
         <activity
             android:name=".test.TestUploadActivity"/>
 
+        <activity
+            android:name=".test.TestDownloadActivity"/>
+
     </application>
 
 </manifest>

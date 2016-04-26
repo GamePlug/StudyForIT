@@ -6,13 +6,17 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.Response;
 import retrofit2.http.GET;
+import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
 import retrofit2.http.PartMap;
 import retrofit2.http.Path;
+import retrofit2.http.Streaming;
 
 /**
  *
@@ -60,6 +64,10 @@ public interface Api {
     Call<String> didi();
 
 
+
+
+    // ---------------文件上传------------------//
+
     @Multipart
     @POST("http://119.29.62.241/leichao/study/UploadImage.php")
     Call<String> uploadImage(
@@ -76,9 +84,28 @@ public interface Api {
 
     @Multipart
     @POST("http://119.29.62.241/leichao/study/UploadMoreImage.php")
-    Call<String> UploadMoreImage(
+    Call<String> uploadMoreImage(
             @Part("hahahaha") String des,
             @PartMap Map<String, RequestBody> params
+    );
+
+
+
+
+    // ---------------文件下载------------------//
+    @GET("http://119.29.62.241/leichao/data/upload/image/{fileName}")
+    //@Headers({"Content-Type: image/jpeg"})
+    @Streaming//如果不加此注释，则会把整个文件写入内存，那么大文件会内存溢出。
+    Call<ResponseBody> getImageFile(
+            @Path("fileName") String fileName
+    );
+
+
+    @GET("http://srctest.didi365.com/didi365/Upload/app/{fileName}")
+    //@Headers({"Content-Type: image/jpeg"})
+    @Streaming//如果不加此注释，则会把整个文件写入内存，那么大文件会内存溢出。
+    Call<ResponseBody> getApk(
+            @Path("fileName") String fileName
     );
 
 }
