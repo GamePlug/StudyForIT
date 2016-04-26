@@ -43,9 +43,9 @@ public class RetrofitManager {
         public  <T> T  create(final Class<T> service) {
             if (client == null) {
                 if (downListener != null) {
-                    client = new ClientForRetrofit().getClient(downListener);
+                    client = ClientForRetrofit.newClient(downListener);
                 } else {
-                    client = new ClientForRetrofit().getClient();
+                    client = ClientForRetrofit.getClient();
                 }
             }
             if (baseUrl == null) {

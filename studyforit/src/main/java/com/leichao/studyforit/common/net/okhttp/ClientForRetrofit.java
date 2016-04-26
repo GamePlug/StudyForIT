@@ -27,32 +27,30 @@ public class ClientForRetrofit {
 
     public static final String APPLICATION_FORM_URL = "application/x-www-form-urlencoded;charset=UTF-8";
     public static final String MULTIPART_FORM_DATA = "multipart/form-data";
-    //private static OkHttpClient client;
+    private static OkHttpClient client;
     private ProgressListener listener;
 
-    /*public static OkHttpClient getClient() {
+    public static OkHttpClient getClient() {
         if (client == null) {
-            //client = new ClientForRetrofit().build(new OkHttpClient.Builder());
-            client = new ClientForRetrofit().build(OkHttpImpl.getUnsafeBuilder());
+            client = new ClientForRetrofit(null).get();
         }
         return client;
-    }*/
-
-    public OkHttpClient getClient() {
-        return build(OkHttpImpl.getUnsafeBuilder());
     }
 
-    public OkHttpClient getClient(ProgressListener listener) {
+    public static OkHttpClient newClient(ProgressListener listener) {
+        return new ClientForRetrofit(listener).get();
+    }
+
+    private ClientForRetrofit(ProgressListener listener) {
         this.listener = listener;
-        return build(OkHttpImpl.getUnsafeBuilder());
     }
 
     /**
      * 设置Retrofit所用OkHttp的一些参数
      */
-    private OkHttpClient build(OkHttpClient.Builder builder) {
+    private OkHttpClient get() {
 
-        return builder
+        return OkHttpImpl.getUnsafeBuilder()
                 .connectTimeout(NetConfig.TIMEOUT, TimeUnit.SECONDS)// 链接超时
                 .writeTimeout(NetConfig.TIMEOUT, TimeUnit.SECONDS)// 写入超时
                 .readTimeout(NetConfig.TIMEOUT, TimeUnit.SECONDS)// 读取超时
