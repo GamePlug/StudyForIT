@@ -3,14 +3,16 @@ package com.leichao.studyforit.test;
 import android.database.Observable;
 
 import java.util.ArrayList;
+import java.util.Map;
 
+import okhttp3.RequestBody;
 import retrofit2.Call;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
+import retrofit2.http.PartMap;
 import retrofit2.http.Path;
-import retrofit2.http.Query;
 
 /**
  *
@@ -56,4 +58,27 @@ public interface Api {
     //http://test.didi365.com/Gold/note/getLists
     @POST("Gold/note/getLists")
     Call<String> didi();
+
+
+    @Multipart
+    @POST("http://119.29.62.241/leichao/study/UploadImage.php")
+    Call<String> uploadImage(
+            @Part("fileName") String des,
+            @Part("file\"; filename=\"image01.jpg") RequestBody param
+    );
+
+    @Multipart
+    @POST("http://119.29.62.241/leichao/study/uploadOneImage.php")
+    Call<String> uploadOneImage(
+            @Part("hahahaha") String des,
+            @PartMap Map<String, RequestBody> params
+    );
+
+    @Multipart
+    @POST("http://119.29.62.241/leichao/study/UploadMoreImage.php")
+    Call<String> UploadMoreImage(
+            @Part("hahahaha") String des,
+            @PartMap Map<String, RequestBody> params
+    );
+
 }
