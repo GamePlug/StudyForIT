@@ -1,10 +1,8 @@
 package com.leichao.studyforit.common.net.okhttp;
 
 import com.leichao.studyforit.common.debug.Debug;
-import com.leichao.studyforit.config.NetConfig;
 
 import java.io.IOException;
-import java.util.concurrent.TimeUnit;
 
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
@@ -19,10 +17,9 @@ public class ClientForGlide {
 
     private static OkHttpClient client;
 
-    public static OkHttpClient getGlideClient() {
+    public static OkHttpClient getClient() {
         if (client == null) {
-            //client = new ClientForGlide().build(new OkHttpClient.Builder());
-            client = new ClientForGlide().build(OkHttpImpl.getUnsafeBuilder());
+            client = new ClientForGlide().get();
         }
         return client;
     }
@@ -30,13 +27,9 @@ public class ClientForGlide {
     /**
      * 设置Glide所用的OkHttp的一些参数
      */
-    private OkHttpClient build(OkHttpClient.Builder builder) {
+    private OkHttpClient get() {
 
-        return builder
-                .connectTimeout(NetConfig.TIMEOUT, TimeUnit.SECONDS)// 链接超时
-                .writeTimeout(NetConfig.TIMEOUT, TimeUnit.SECONDS)// 写入超时
-                .readTimeout(NetConfig.TIMEOUT, TimeUnit.SECONDS)// 读取超时
-                //.cache(new Cache(new File(""), 1024 * 1024 * 100))//缓存文件夹""，缓存大小100Mb
+        return ClientBuilder.getBuilder()
                 .addInterceptor(new Interceptor() {
                     @Override
                     public Response intercept(Chain chain) throws IOException {

@@ -2,7 +2,6 @@ package com.leichao.studyforit.common.net.glide;
 
 import android.content.Context;
 
-import com.bumptech.glide.integration.okhttp3.OkHttpStreamFetcher;
 import com.bumptech.glide.load.data.DataFetcher;
 import com.bumptech.glide.load.model.GenericLoaderFactory;
 import com.bumptech.glide.load.model.GlideUrl;
@@ -15,24 +14,24 @@ import java.io.InputStream;
 import okhttp3.OkHttpClient;
 
 /**
- * 使用了不安全的OkHttpClient(不验证HTTPS的签名)
+ * 使用了OkHttpClient
  * Created by leichao on 2016/4/20.
  */
-public class UnsafeOkHttpUrlLoader implements ModelLoader<GlideUrl, InputStream> {
+public class OkHttpModeLoader implements ModelLoader<GlideUrl, InputStream> {
 
     private final OkHttpClient client;
 
-    public UnsafeOkHttpUrlLoader(OkHttpClient client) {
+    public OkHttpModeLoader(OkHttpClient client) {
         this.client = client;
     }
 
     @Override
     public DataFetcher<InputStream> getResourceFetcher(GlideUrl model, int width, int height) {
-        return new OkHttpStreamFetcher(client, model);
+        return new OkHttpDataFetcher(client, model);
     }
 
     /**
-     * The default factory for {@link UnsafeOkHttpUrlLoader}s.
+     * The default factory for {@link OkHttpModeLoader}s.
      */
     public static class Factory implements ModelLoaderFactory<GlideUrl, InputStream> {
         private static volatile OkHttpClient internalClient;
@@ -42,7 +41,7 @@ public class UnsafeOkHttpUrlLoader implements ModelLoader<GlideUrl, InputStream>
             if (internalClient == null) {
                 synchronized (Factory.class) {
                     if (internalClient == null) {
-                        internalClient = ClientForGlide.getGlideClient();
+                        internalClient = ClientForGlide.getClient();
                     }
                 }
             }
@@ -65,7 +64,7 @@ public class UnsafeOkHttpUrlLoader implements ModelLoader<GlideUrl, InputStream>
 
         @Override
         public ModelLoader<GlideUrl, InputStream> build(Context context, GenericLoaderFactory factories) {
-            return new UnsafeOkHttpUrlLoader(client);
+            return new OkHttpModeLoader(client);
         }
 
         @Override

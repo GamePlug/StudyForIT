@@ -202,6 +202,7 @@ public class TestUploadActivity extends BaseActivity {
         List<RetrofitUpload.UploadBean> list = new ArrayList<>();
         final File file1 = new File(Environment.getExternalStorageDirectory() + "/picture/lol/image02.jpg");
         list.add(new RetrofitUpload.UploadBean(
+                "image[]",
                 file1,
                 new ProgressListener() {
                     @Override
@@ -212,6 +213,7 @@ public class TestUploadActivity extends BaseActivity {
                 }));
         final File file2 = new File(Environment.getExternalStorageDirectory() + "/picture/lol/image03.jpg");
         list.add(new RetrofitUpload.UploadBean(
+                "image[]",
                 file2,
                 new ProgressListener() {
                     @Override
@@ -220,7 +222,7 @@ public class TestUploadActivity extends BaseActivity {
                                 + "---done" + done);
                     }
                 }));
-        Map<String, RequestBody> params = RetrofitUpload.getRequestBodyMap("image", list);
+        Map<String, RequestBody> params = RetrofitUpload.getRequestBodyMap(list);
 
         new RetrofitManager.Creator()
                 .factory(ScalarsConverterFactory.create())

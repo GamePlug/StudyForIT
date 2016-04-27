@@ -45,7 +45,7 @@ public class CustomGlideModule implements GlideModule {
          * 以及okhttp包
          */
         //glide.register(GlideUrl.class, InputStream.class, new OkHttpUrlLoader.Factory());
-        glide.register(GlideUrl.class, InputStream.class, new UnsafeOkHttpUrlLoader.Factory());
+        glide.register(GlideUrl.class, InputStream.class, new OkHttpModeLoader.Factory());
 
         /**
          * 使用Volley加载图片,需要导入包：

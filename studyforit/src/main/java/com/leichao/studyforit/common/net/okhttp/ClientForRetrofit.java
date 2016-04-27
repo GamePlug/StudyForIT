@@ -1,12 +1,10 @@
 package com.leichao.studyforit.common.net.okhttp;
 
 import com.leichao.studyforit.common.debug.Debug;
-import com.leichao.studyforit.config.NetConfig;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import okhttp3.FormBody;
 import okhttp3.Headers;
@@ -18,6 +16,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import okio.Buffer;
 
 /**
  * 创建Retrofit的OkHttpClient
@@ -49,12 +48,7 @@ public class ClientForRetrofit {
      * 设置Retrofit所用OkHttp的一些参数
      */
     private OkHttpClient get() {
-
-        return OkHttpImpl.getUnsafeBuilder()
-                .connectTimeout(NetConfig.TIMEOUT, TimeUnit.SECONDS)// 链接超时
-                .writeTimeout(NetConfig.TIMEOUT, TimeUnit.SECONDS)// 写入超时
-                .readTimeout(NetConfig.TIMEOUT, TimeUnit.SECONDS)// 读取超时
-                //.cache(new Cache(new File(""), 1024 * 1024 * 100))//缓存文件夹""，缓存大小100Mb
+        return ClientBuilder.getBuilder()
                 .addInterceptor(new Interceptor() {
                     @Override
                     public Response intercept(Chain chain) throws IOException {
@@ -121,8 +115,8 @@ public class ClientForRetrofit {
                 .add("username", "leichao")
                 .add("password", "normalPost")
                 .build();
-        String postBodyString = OkHttpImpl.bodyToString(request.body());
-        postBodyString += ((postBodyString.length() > 0) ? "&" : "") + OkHttpImpl.bodyToString(formBody);
+        String postBodyString = bodyToString(request.body());
+        postBodyString += ((postBodyString.length() > 0) ? "&" : "") + bodyToString(formBody);
         request = request.newBuilder()
                 .post(RequestBody.create(
                         MediaType.parse(APPLICATION_FORM_URL),
@@ -167,7 +161,7 @@ public class ClientForRetrofit {
                     Field field2 = MultipartBody.Part.class.getDeclaredField("body");
                     field2.setAccessible(true);
                     RequestBody body = (RequestBody)field2.get(part);
-                    value = OkHttpImpl.bodyToString(body);
+                    value = bodyToString(body);
                 }
                 bodystring += (bodystring.equals("") ? "" : "&") + key + "=" + value;
             } catch (Exception e) {
@@ -177,6 +171,24 @@ public class ClientForRetrofit {
         }
         Debug.e("retrofit", "upload_post_url:" + request.url() + "?" + bodystring);
         return request;
+    }
+
+    /**
+     * RequestBody将转换成对应的字符串
+     */
+    private static String bodyToString(final RequestBody request){
+        try {
+            final RequestBody copy = request;
+            final Buffer buffer = new Buffer();
+            if(copy != null)
+                copy.writeTo(buffer);
+            else
+                return "";
+            return buffer.readUtf8();
+        }
+        catch (final IOException e) {
+            return "did not work";
+        }
     }
 
 }
