@@ -5,7 +5,7 @@
     android:orientation="vertical">
 
     <com.leichao.studyforit.common.widget.pullrecycler.PullRecycler
-        android:id="@id/pullRecycler"
+        android:id="@+id/index_pullrecycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 

@@ -14,14 +14,23 @@ public abstract class BaseFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return initView(inflater, container, savedInstanceState);
+        View view = initView(inflater, container, savedInstanceState);
+        if (view == null) {
+            view = defaultView(inflater, container, savedInstanceState);
+        }
+        return view;
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        init();
         initData();
         initEvent();
+    }
+
+    protected View defaultView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        return null;
     }
 
     public abstract View initView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState);
@@ -29,5 +38,16 @@ public abstract class BaseFragment extends Fragment {
     public abstract void initData();
 
     public abstract void initEvent();
+
+    private void init() {
+        // TODO Fragment的通用设置
+
+        defaultData();
+    }
+
+    // 让子Base类添加默认数据
+    protected void defaultData() {
+
+    }
 
 }

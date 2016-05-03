@@ -22,7 +22,7 @@ public class PullRecycler extends FrameLayout implements SwipeRefreshLayout.OnRe
     private OnRecyclerRefreshListener listener;
     private int mCurrentState = ACTION_IDLE;
     private boolean isLoadMoreEnabled = false;
-    private boolean isPullToRefreshEnabled = true;
+    private boolean isPullToRefreshEnabled = false;
     private ILayoutManager mLayoutManager;
     private BaseListAdapter adapter;
 
@@ -44,6 +44,7 @@ public class PullRecycler extends FrameLayout implements SwipeRefreshLayout.OnRe
     private void setUpView() {
         LayoutInflater.from(getContext()).inflate(R.layout.widget_pull_to_refresh, this, true);
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
+        mSwipeRefreshLayout.setEnabled(isPullToRefreshEnabled);
         mSwipeRefreshLayout.setOnRefreshListener(this);
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {

@@ -20,10 +20,14 @@ public abstract class BaseLoadingFragment extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        super.onCreateView(inflater,container,savedInstanceState);
         if (layout == null) {
             layout = (FrameLayout) inflater.inflate(R.layout.fragment_base_loading, container, false);
             loading = (RequestLoadingView) layout.findViewById(R.id.base_loading_requestloadingview);
             View view = initView(inflater, layout, savedInstanceState);
+            if (view == null) {
+                view = defaultView(inflater, container, savedInstanceState);
+            }
             layout.addView(view, 0);
         } else {
             ViewGroup parent = (ViewGroup) layout.getParent();

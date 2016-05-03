@@ -26,28 +26,23 @@ public abstract class BaseListFragment<T> extends BaseLoadingFragment implements
     protected PullRecycler recycler;
 
     @Override
-    public View initView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    protected View defaultView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_base_list, container, false);
         recycler = (PullRecycler) view.findViewById(R.id.pullRecycler);
         return view;
     }
 
     @Override
-    public void initData() {
-        setUpAdapter();
+    protected void defaultData() {
+        mDataList = new ArrayList<>();
         recycler.setOnRefreshListener(this);
         recycler.setLayoutManager(getLayoutManager());
         recycler.addItemDecoration(getItemDecoration());
-        recycler.setAdapter(adapter);
+        recycler.setAdapter(adapter = getAdapter());
     }
 
-    @Override
-    public void initEvent() {
-
-    }
-
-    protected void setUpAdapter() {
-        adapter = new ListAdapter();
+    protected BaseListAdapter getAdapter() {
+        return new ListAdapter();
     }
 
     protected ILayoutManager getLayoutManager() {
@@ -90,5 +85,10 @@ public abstract class BaseListFragment<T> extends BaseLoadingFragment implements
     }
 
     protected abstract BaseViewHolder getViewHolder(ViewGroup parent, int viewType);
+
+    @Override
+    public void onRefresh(int action) {
+
+    }
 
 }

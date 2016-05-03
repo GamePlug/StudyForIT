@@ -3,7 +3,7 @@
     android:layout_height="match_parent">
 
     <com.leichao.studyforit.common.widget.pullrecycler.PullRecycler
-        android:id="@id/pullRecycler"
+        android:id="@+id/pullRecycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

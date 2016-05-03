@@ -24,27 +24,20 @@ public abstract class BaseListActivity<T> extends BaseLoadingActivity implements
     protected PullRecycler recycler;
 
     @Override
-    public void initView() {
-        setContentView(R.layout.activity_base_list);
-        recycler = (PullRecycler) findViewById(R.id.pullRecycler);
-    }
-
-    @Override
-    public void initData() {
-        setUpAdapter();
+    protected void defaultData() {
+        if (recycler == null) {
+            setContentView(R.layout.activity_base_list);
+            recycler = (PullRecycler) findViewById(R.id.pullRecycler);
+        }
+        mDataList = new ArrayList<>();
         recycler.setOnRefreshListener(this);
         recycler.setLayoutManager(getLayoutManager());
         recycler.addItemDecoration(getItemDecoration());
-        recycler.setAdapter(adapter);
+        recycler.setAdapter(adapter = new ListAdapter());
     }
 
-    @Override
-    public void initEvent() {
-
-    }
-
-    protected void setUpAdapter() {
-        adapter = new ListAdapter();
+    protected BaseListAdapter getAdapter() {
+        return new ListAdapter();
     }
 
     protected ILayoutManager getLayoutManager() {
@@ -85,5 +78,10 @@ public abstract class BaseListActivity<T> extends BaseLoadingActivity implements
         return 0;
     }
     protected abstract BaseViewHolder getViewHolder(ViewGroup parent, int viewType);
+
+    @Override
+    public void onRefresh(int action) {
+
+    }
 
 }

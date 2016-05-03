@@ -30,20 +30,23 @@ public class TestListActivity extends BaseListActivity<Benefit> {
     private int page = 1;
 
     @Override
-    public void initData() {
-        super.initData();
+    public void initView() {
 
+    }
+
+    @Override
+    public void initData() {
         /*CrashHandler.delAllLog();
         int a = 5/0;*/
 
         //recycler.setRefreshing();
+        recycler.enablePullToRefresh(true);
         startLoading();
         onRefresh(PullRecycler.ACTION_IDLE);
     }
 
     @Override
     public void initEvent() {
-        super.initEvent();
         setReconnectListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,9 +63,6 @@ public class TestListActivity extends BaseListActivity<Benefit> {
 
     @Override
     public void onRefresh(final int action) {
-        if (mDataList == null) {
-            mDataList = new ArrayList<>();
-        }
 
         if (action == PullRecycler.ACTION_PULL_TO_REFRESH
                 || action == PullRecycler.ACTION_IDLE) {
@@ -148,7 +148,12 @@ public class TestListActivity extends BaseListActivity<Benefit> {
 
         @Override
         public void onItemClick(View view, int position) {
-            Glide.get(TestListActivity.this).clearDiskCache();
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    Glide.get(TestListActivity.this).clearDiskCache();
+                }
+            }).start();
         }
 
     }

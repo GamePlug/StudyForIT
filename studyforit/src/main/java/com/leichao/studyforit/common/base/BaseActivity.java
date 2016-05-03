@@ -13,6 +13,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initView();
+        init();
         initData();
         initEvent();
     }
@@ -22,5 +23,16 @@ public abstract class BaseActivity extends AppCompatActivity {
     public abstract void initData();
 
     public abstract void initEvent();
+
+    private void init() {
+        // TODO Activity的通用设置
+
+        defaultData();
+    }
+
+    // 让子Base类添加默认数据
+    protected void defaultData() {
+
+    }
 
 }
