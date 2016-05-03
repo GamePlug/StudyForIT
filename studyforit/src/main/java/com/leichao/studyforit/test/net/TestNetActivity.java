@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.leichao.studyforit.R;
 import com.leichao.studyforit.common.base.BaseActivity;
+import com.leichao.studyforit.common.widget.titlebar.ToolbarManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +27,7 @@ public class TestNetActivity extends BaseActivity {
     @Override
     public void initView() {
         setContentView(R.layout.test_activity_net);
+        ToolbarManager.setToolbar(this, "网络框架测试");
         listView = (ListView) findViewById(R.id.main_listview);
     }
 

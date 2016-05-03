@@ -1,0 +1,5 @@
+<resources>
+
+    <dimen name="toolbar_height">45dp</dimen>
+
+</resources>

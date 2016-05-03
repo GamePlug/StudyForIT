@@ -8,7 +8,7 @@
 
     <com.leichao.studyforit.common.widget.loading.RequestLoadingView
         android:id="@+id/base_loading_requestloadingview"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="@dimen/toolbar_height"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 

@@ -8,6 +8,7 @@ import com.leichao.studyforit.appmode.discover.DiscoverFragment;
 import com.leichao.studyforit.appmode.index.IndexFragment;
 import com.leichao.studyforit.appmode.me.MeFragment;
 import com.leichao.studyforit.appmode.message.MessageFragment;
+import com.leichao.studyforit.common.widget.titlebar.ToolbarManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,14 +27,14 @@ public class MainTabActivity extends BaseActivity {
     @Override
     public void initView() {
         setContentView(R.layout.activity_main_tab);
-        title = (TextView) findViewById(R.id.main_tab_title);
+        ToolbarManager.setToolbar(this, -1, getString(R.string.tab_index), null);
+        title = ToolbarManager.getTitleTv(this);
         tabView = (MainTabView) findViewById(R.id.main_tab_bottom);
     }
 
     @Override
     public void initData() {
         instance = this;
-        title.setText(getString(R.string.tab_index));
         initTab();
     }
 

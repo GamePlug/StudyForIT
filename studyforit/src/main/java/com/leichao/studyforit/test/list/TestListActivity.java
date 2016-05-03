@@ -13,6 +13,7 @@ import com.leichao.studyforit.common.net.retrofit.RetrofitManager;
 import com.leichao.studyforit.common.debug.Debug;
 import com.leichao.studyforit.common.widget.pullrecycler.BaseViewHolder;
 import com.leichao.studyforit.common.widget.pullrecycler.PullRecycler;
+import com.leichao.studyforit.common.widget.titlebar.ToolbarManager;
 
 import java.util.ArrayList;
 
@@ -36,6 +37,7 @@ public class TestListActivity extends BaseListActivity<Benefit> {
 
     @Override
     public void initData() {
+        ToolbarManager.setToolbar(this, "列表");
         /*CrashHandler.delAllLog();
         int a = 5/0;*/
 

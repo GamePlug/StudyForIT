@@ -2,6 +2,7 @@ package com.leichao.studyforit.appmode.index;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import com.leichao.studyforit.R;
 import com.leichao.studyforit.common.base.BaseListFragment;
 import com.leichao.studyforit.common.widget.pullrecycler.BaseViewHolder;
+import com.leichao.studyforit.common.widget.pullrecycler.GridItemDecoration;
 import com.leichao.studyforit.common.widget.pullrecycler.ILayoutManager;
 import com.leichao.studyforit.common.widget.pullrecycler.MyGridLayoutManager;
 import com.leichao.studyforit.common.widget.pullrecycler.PullRecycler;
@@ -36,6 +38,11 @@ public class IndexFragment extends BaseListFragment<SubjectBean> {
         mDataList.add(new SubjectBean(TestNetActivity.class, R.drawable.tab_discover_normal, "Net"));
         mDataList.add(new SubjectBean(TestListActivity.class, R.drawable.tab_discover_pressed, "List"));
         mDataList.add(new SubjectBean(TestLoadingActivity.class, R.drawable.tab_discover_pressed, "Loading"));
+        mDataList.add(new SubjectBean(TestNetActivity.class, R.drawable.tab_discover_normal, "Net"));
+        mDataList.add(new SubjectBean(TestListActivity.class, R.drawable.tab_discover_pressed, "List"));
+        mDataList.add(new SubjectBean(TestLoadingActivity.class, R.drawable.tab_discover_pressed, "Loading"));
+        mDataList.add(new SubjectBean(null, 0, ""));
+        mDataList.add(new SubjectBean(null, 0, ""));
     }
 
     @Override
@@ -46,6 +53,11 @@ public class IndexFragment extends BaseListFragment<SubjectBean> {
     @Override
     protected ILayoutManager getLayoutManager() {
         return new MyGridLayoutManager(getActivity(), 4);
+    }
+
+    @Override
+    protected RecyclerView.ItemDecoration getItemDecoration() {
+        return new GridItemDecoration(getActivity(), R.drawable.list_divider);
     }
 
     @Override
@@ -75,8 +87,10 @@ public class IndexFragment extends BaseListFragment<SubjectBean> {
         @Override
         public void onItemClick(View view, int position) {
             SubjectBean bean = mDataList.get(position);
-            Intent intent = new Intent(getActivity(), bean.getClazz());
-            getActivity().startActivity(intent);
+            if (bean.getClazz() != null) {
+                Intent intent = new Intent(getActivity(), bean.getClazz());
+                getActivity().startActivity(intent);
+            }
         }
 
     }

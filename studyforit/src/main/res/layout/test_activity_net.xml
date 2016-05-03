@@ -5,6 +5,8 @@
     android:orientation="vertical"
     android:background="#EEEEEE">
 
+    <include layout="@layout/widget_toolbar"/>
+
     <ListView
         android:id="@+id/main_listview"
         android:layout_width="match_parent"

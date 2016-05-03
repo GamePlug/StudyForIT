@@ -4,20 +4,7 @@
     android:layout_height="fill_parent"
     android:orientation="vertical">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="#232325">
-
-        <TextView
-            android:id="@+id/main_tab_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="@string/tab_message"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp" />
-    </RelativeLayout>
+    <include layout="@layout/widget_toolbar"/>
 
     <!-- 内容模块 -->
     <FrameLayout

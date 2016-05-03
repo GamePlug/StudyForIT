@@ -26,7 +26,7 @@ public class WelcomeActivity extends BaseActivity {
                 startActivity(intent);
                 finish();
             }
-        }, 3000);
+        }, 1000);
     }
 
     @Override
