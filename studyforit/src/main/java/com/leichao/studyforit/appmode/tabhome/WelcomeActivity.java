@@ -4,11 +4,7 @@ import android.content.Intent;
 import android.os.Handler;
 
 import com.leichao.studyforit.R;
-import com.leichao.studyforit.base.BaseActivity;
-import com.leichao.studyforit.test.TestDownloadActivity;
-import com.leichao.studyforit.test.TestListActivity;
-import com.leichao.studyforit.test.TestOkhttpActivity;
-import com.leichao.studyforit.test.TestUploadActivity;
+import com.leichao.studyforit.common.base.BaseActivity;
 
 /**
  *
@@ -26,7 +22,7 @@ public class WelcomeActivity extends BaseActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(WelcomeActivity.this, TestUploadActivity.class);
+                Intent intent = new Intent(WelcomeActivity.this, MainTabActivity.class);
                 startActivity(intent);
                 finish();
             }

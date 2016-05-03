@@ -1,4 +1,4 @@
-package com.leichao.studyforit.base;
+package com.leichao.studyforit.common.base;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

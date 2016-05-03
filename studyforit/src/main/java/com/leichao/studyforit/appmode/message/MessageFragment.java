@@ -5,7 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.leichao.studyforit.base.BaseFragment;
+import com.leichao.studyforit.common.base.BaseFragment;
 
 /**
  *

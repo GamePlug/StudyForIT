@@ -6,6 +6,7 @@ import java.io.File;
 
 import retrofit2.Converter;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 /**
  * 网络访问相关配置
@@ -17,8 +18,8 @@ public class NetConfig {
      * Retrofit默认网络请求的地址
      * Retrofit默认网络请求的数据解析工厂
      */
-    public static final String DEFAULT_BASEURL = "http://gank.io/";
-    public static final Converter.Factory DEFAULT_FACTORY = GsonConverterFactory.create();
+    public static final String DEFAULT_BASEURL = "http://www.didi365.com/";
+    public static final Converter.Factory DEFAULT_FACTORY = ScalarsConverterFactory.create();
 
 
     /**

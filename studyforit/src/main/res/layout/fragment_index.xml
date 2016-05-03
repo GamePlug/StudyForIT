@@ -4,12 +4,9 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
+    <com.leichao.studyforit.common.widget.pullrecycler.PullRecycler
+        android:id="@id/pullRecycler"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="首页啊啊啊"
-        android:textColor="#333333"
-        android:textSize="18sp"/>
+        android:layout_height="match_parent"/>
 
 </LinearLayout>

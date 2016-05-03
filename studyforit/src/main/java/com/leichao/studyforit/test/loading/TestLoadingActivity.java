@@ -1,9 +1,9 @@
-package com.leichao.studyforit.test;
+package com.leichao.studyforit.test.loading;
 
 import android.view.View;
 
 import com.leichao.studyforit.R;
-import com.leichao.studyforit.base.BaseLoadingActivity;
+import com.leichao.studyforit.common.base.BaseLoadingActivity;
 import com.leichao.studyforit.common.widget.loading.DialogLoading;
 import com.leichao.studyforit.common.widget.loading.RequestLoading;
 
@@ -29,7 +29,7 @@ public class TestLoadingActivity extends BaseLoadingActivity {
 
         dialogLoading = new DialogLoading(this, "加载咯");
         dialogLoading.show();
-        dialogLoading.dismiss();
+        //dialogLoading.dismiss();
 
         startLoading();
 

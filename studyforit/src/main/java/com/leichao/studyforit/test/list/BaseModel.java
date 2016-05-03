@@ -1,4 +1,4 @@
-package com.leichao.studyforit.test;
+package com.leichao.studyforit.test.list;
 
 /**
  *

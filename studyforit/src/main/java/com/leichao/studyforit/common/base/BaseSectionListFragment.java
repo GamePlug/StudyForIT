@@ -1,4 +1,4 @@
-package com.leichao.studyforit.base;
+package com.leichao.studyforit.common.base;
 
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
@@ -14,8 +14,7 @@ import com.leichao.studyforit.common.widget.pullrecycler.SectionData;
  * Created by Stay on 8/3/16.
  * Powered by www.stay4it.com
  */
-public abstract class BaseSectionListActivity<T> extends BaseListActivity<SectionData<T>> {
-
+public abstract class BaseSectionListFragment<T> extends BaseListFragment<SectionData<T>> {
     protected static final int VIEW_TYPE_SECTION_HEADER = 1;
     protected static final int VIEW_TYPE_SECTION_CONTENT = 2;
 
@@ -30,7 +29,7 @@ public abstract class BaseSectionListActivity<T> extends BaseListActivity<Sectio
     protected abstract BaseViewHolder onCreateSectionViewHolder(ViewGroup parent, int viewType);
 
     private BaseViewHolder onCreateSectionHeaderViewHolder(ViewGroup parent) {
-        View view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.widget_pull_to_refresh_section_header, parent, false);
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.widget_pull_to_refresh_section_header, parent, false);
         return new SectionHeaderViewHolder(view);
     }
 
@@ -68,4 +67,5 @@ public abstract class BaseSectionListActivity<T> extends BaseListActivity<Sectio
 
         }
     }
+
 }

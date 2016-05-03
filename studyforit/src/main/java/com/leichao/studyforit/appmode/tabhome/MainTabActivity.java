@@ -3,7 +3,7 @@ package com.leichao.studyforit.appmode.tabhome;
 import android.widget.TextView;
 
 import com.leichao.studyforit.R;
-import com.leichao.studyforit.base.BaseActivity;
+import com.leichao.studyforit.common.base.BaseActivity;
 import com.leichao.studyforit.appmode.discover.DiscoverFragment;
 import com.leichao.studyforit.appmode.index.IndexFragment;
 import com.leichao.studyforit.appmode.me.MeFragment;

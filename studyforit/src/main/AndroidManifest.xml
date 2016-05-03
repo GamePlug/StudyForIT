@@ -27,17 +27,17 @@
             android:name=".appmode.tabhome.MainTabActivity"
             android:launchMode="singleTask"/>
 
-        <activity
-            android:name=".test.TestListActivity"/>
+        <activity android:name=".test.list.TestListActivity"/>
 
-        <activity
-            android:name=".test.TestOkhttpActivity"/>
+        <activity android:name=".test.loading.TestLoadingActivity"/>
 
-        <activity
-            android:name=".test.TestUploadActivity"/>
-
-        <activity
-            android:name=".test.TestDownloadActivity"/>
+        <activity android:name=".test.net.TestNetActivity"/>
+        <activity android:name=".test.net.TestDownloadActivity"/>
+        <activity android:name=".test.net.TestGetActivity"/>
+        <activity android:name=".test.net.TestGsonActivity"/>
+        <activity android:name=".test.net.TestHttpsActivity"/>
+        <activity android:name=".test.net.TestPostActivity"/>
+        <activity android:name=".test.net.TestUploadActivity"/>
 
     </application>
 

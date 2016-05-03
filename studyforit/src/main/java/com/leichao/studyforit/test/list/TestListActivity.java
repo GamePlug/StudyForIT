@@ -1,4 +1,4 @@
-package com.leichao.studyforit.test;
+package com.leichao.studyforit.test.list;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -6,10 +6,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.leichao.studyforit.R;
-import com.leichao.studyforit.base.BaseListActivity;
-import com.leichao.studyforit.common.net.glide.TransformCircle;
+import com.leichao.studyforit.common.base.BaseListActivity;
 import com.leichao.studyforit.common.net.glide.TransformRotate;
 import com.leichao.studyforit.common.net.retrofit.RetrofitManager;
 import com.leichao.studyforit.common.debug.Debug;
@@ -21,6 +19,7 @@ import java.util.ArrayList;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  *
@@ -71,10 +70,10 @@ public class TestListActivity extends BaseListActivity<Benefit> {
         }
 
         new RetrofitManager.Creator()
-            .create(Api.class)
+            .baseUrl("http://gank.io/")
+            .factory(GsonConverterFactory.create())
+            .create(ListApi.class)
             .defaultBenefits(20, page++)
-            //.postBenefits(20, page++, "wgghw")
-            //.postBenefits(20, page++)
             .enqueue(new Callback<BaseModel<ArrayList<Benefit>>>() {
                  @Override
                  public void onResponse(Call<BaseModel<ArrayList<Benefit>>> call, Response<BaseModel<ArrayList<Benefit>>> response) {
