@@ -24,6 +24,7 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        defaultData();
         init();
         initData();
         initEvent();
@@ -39,14 +40,13 @@ public abstract class BaseFragment extends Fragment {
 
     public abstract void initEvent();
 
-    private void init() {
-        // TODO Fragment的通用设置
-
-        defaultData();
-    }
-
     // 让子Base类添加默认数据
     protected void defaultData() {
+
+    }
+
+    // Fragment的通用设置
+    private void init() {
 
     }
 

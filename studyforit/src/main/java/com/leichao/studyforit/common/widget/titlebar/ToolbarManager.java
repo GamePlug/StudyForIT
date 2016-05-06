@@ -36,6 +36,8 @@ public class ToolbarManager {
         Toolbar toolbar = (Toolbar) activity.findViewById(R.id.toolbar);
         TextView titleTv = (TextView) activity.findViewById(R.id.toolbar_title);
         if (toolbar != null && titleTv != null) {
+            StatusBarManager.setBackgroundColor(activity,
+                    ContextCompat.getColor(activity, R.color.theme_main));
             toolbar.setTitle("");
             if (leftIconResId > 0) {
                 toolbar.setNavigationIcon(R.drawable.toolbar_back);
@@ -77,6 +79,8 @@ public class ToolbarManager {
     public static void setBackgroudColor(Activity activity, int colorResId) {
         Toolbar toolbar = (Toolbar) activity.findViewById(R.id.toolbar);
         if (toolbar != null) {
+            StatusBarManager.setBackgroundColor(activity,
+                    ContextCompat.getColor(activity, colorResId));
             toolbar.setBackgroundResource(colorResId);
         }
     }
